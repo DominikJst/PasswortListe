@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PasswortListe:jar">
+    <output-path>$PROJECT_DIR$/../Desktop</output-path>
+    <root id="archive" name="PasswortListe.jar">
+      <element id="module-output" name="verwaltung" />
+      <element id="module-output" name="PasswortListe" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-io/commons-io/2.6/commons-io-2.6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.6/commons-lang-2.6.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
