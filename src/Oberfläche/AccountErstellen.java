@@ -57,7 +57,7 @@ public class AccountErstellen extends JFrame {
                         } catch (Exception ex) {
 
                             JOptionPane.showMessageDialog(null, "Der Account konnte nicht angelegt werden!");
-                            loggen(ex);
+                            loggen(ex.toString());
                         }
                     }
 
@@ -85,7 +85,7 @@ public class AccountErstellen extends JFrame {
 
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Die Daten konnten nicht gelöscht werden!");
-                        loggen(ex);
+                        loggen(ex.toString());
                     }
 
                 }
@@ -103,7 +103,7 @@ public class AccountErstellen extends JFrame {
         setVisible(true);
     }
 
-    public void loggen(Exception exception) {
+    public void loggen(String exception) {
 
         try {
             LocalDateTime now = LocalDateTime.now();
@@ -111,12 +111,12 @@ public class AccountErstellen extends JFrame {
             df = DateTimeFormatter.ofPattern("dd-MM-yyyy kk:mm:ss");
 
             BufferedWriter logWriter = new BufferedWriter(new FileWriter(logFile, true));
-            logWriter.append("Konto erstellen " + exception.toString() + " / " + now.format(df) + "\n");
+            logWriter.append("Konto erstellen " + exception + " / " + now.format(df) + "\n");
             logWriter.close();
 
 
         } catch (Exception eg) {
-            loggen(eg);
+            loggen(eg.toString());
         }
     }
 

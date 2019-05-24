@@ -1,5 +1,6 @@
 package Classes;
 
+import Oberfläche.AccountErstellen;
 import org.apache.commons.io.FileUtils;
 
 import javax.mail.Message;
@@ -14,14 +15,14 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 
-public class MailVersenden{
+
+public class MailVersenden {
+
+    AccountErstellen erstellen = new AccountErstellen();
 
     private File userDirectory = FileUtils.getUserDirectory();
 
     public void mailSenden() {
-
-        String sender = "smtp.gmail.com";
-        String host = "";
 
         try {
 
@@ -30,27 +31,42 @@ public class MailVersenden{
             String passwortEncoded = new String(DatatypeConverter.parseBase64Binary(passwort));
             String emailEncoded = new String(DatatypeConverter.parseBase64Binary(email));
 
+            String from = "testbublik32@gmail.com";
+            String passFrom = "1Jodominikst2";
+
+            String host = "smtp.gmail.com";
+
             Properties properties = System.getProperties();
-            properties.setProperty("mail.smtp.host", host);
+
+            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.host", host);
+            properties.put("mail.smtp.user", from);
+            properties.put("mail.smtp.password", passFrom);
+            properties.put("mail.smtp.port", "587");
+            properties.put("mail.smtp.auth", "true");
 
             Session session = Session.getDefaultInstance(properties);
 
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(sender));
+            message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(emailEncoded));
-            message.setSubject("Hello World!");
-            message.setText(passwortEncoded);
 
-            Transport.send(message);
-            System.out.println("send");
+            message.setText("Das Passwort lautet: " + passwortEncoded + "\n" + "Zu dem Account mit der Mail: " + emailEncoded);
+            message.setSubject("Das Passwort zu dem Account verwalter!");
+
+            Transport transport = session.getTransport("smtp");
+            transport.connect(host, from, passFrom);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+            erstellen.loggen("Sent message successfully");
 
 
+        } catch (Exception e) {
+
+            erstellen.loggen(e.toString());
         }
-        catch (Exception e) {
-            System.out.println(e);
-        }
+
 
     }
-
 
 }

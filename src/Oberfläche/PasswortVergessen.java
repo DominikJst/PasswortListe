@@ -18,6 +18,7 @@ public class PasswortVergessen extends JFrame{
 
                 MailVersenden versenden = new MailVersenden();
                 versenden.mailSenden();
+                dispose();
             }
         });
         neinButton.addActionListener(new ActionListener() {
