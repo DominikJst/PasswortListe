@@ -32,7 +32,7 @@ public class MailVersenden {
             String emailEncoded = new String(DatatypeConverter.parseBase64Binary(email));
 
             String from = "testbublik32@gmail.com";
-            String passFrom = "1Jodominikst2";
+            String passFrom = "PASSWORD";
 
             String host = "smtp.gmail.com";
 
